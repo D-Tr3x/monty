@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
     file = fopen(argv[1], "r");
     if (file == NULL)
     {
-        fprintf(stderr, "Error: Can't open file  %s\n", argv[1]);
+        fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
         exit(EXIT_FAILURE);
     }
 
@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
 
         if (instructions[i].opcode == NULL)
         {
-            fprintf(stderr, "L%u: Unknown instruction %s\n", line_number, opcode);
+            fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
             fclose(file);
             free_stack(stack);
             exit(EXIT_FAILURE);
