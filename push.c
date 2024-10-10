@@ -4,16 +4,23 @@
  * push - pushes an integer to the stack
  * @stack: double pointer to top of the stack
  * @line_number: the current line number in bytecode
- * @arg: argument to push
  */
 void push(stack_t **stack, unsigned int line_number)
 {
     stack_t *node;
-    int current;
+    int i, current;
 
-    if (argt == NULL || (*argt != '-' && !isdigit(*argt)))
+    if (argt == NULL)
     {
-        fprintf(stderr, "L%u: usage: push integer", line_number);
+        fprintf(stderr, "L%u: usage: push integer\n", line_number);
+        exit(EXIT_FAILURE);
+    }
+
+    for (i = 0; argt[i] != '\0'; i++)
+    {
+        if ((argt[i] == '-' && i == 0) || isdigit(argt[i]))
+          continue;
+        fprintf(stderr, "L%u: usage: push integer\n", line_number);
         exit(EXIT_FAILURE);
     }
 

@@ -32,14 +32,16 @@ int main(int argc, char *argv[])
     if (file == NULL)
     {
         fprintf(stderr, "Error: Can't open file  %s\n", argv[1]);
+        exit(EXIT_FAILURE);
     }
 
     while (fgets(line, sizeof(line), file) != NULL)
     {
-        opcode = strtok(line, " \n");
+        line_number++;
+        opcode = strtok(line, " \n\t");
         if (opcode == NULL || opcode[0] == '#')
             continue;
-        arg = strtok(NULL, " \n");
+        arg = strtok(NULL, " \n\t");
 
         if (strcmp(opcode, "push") == 0)
             {
@@ -58,13 +60,11 @@ int main(int argc, char *argv[])
 
         if (instructions[i].opcode == NULL)
         {
-            fprintf(stderr, "L%u: Unknown instr -> %s\n", line_number, opcode);
+            fprintf(stderr, "L%u: Unknown instruction %s\n", line_number, opcode);
             fclose(file);
             free_stack(stack);
             exit(EXIT_FAILURE);
         }
-
-        line_number++;
     }
 
     fclose(file);
